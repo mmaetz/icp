@@ -1,5 +1,5 @@
 CFLAGS=-std=c++11
-all: main task1
+all: main task1 task2
 
 main: main.cpp
 	g++ main.cpp $(CFLAGS) -o main.out
