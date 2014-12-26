@@ -1,0 +1,1 @@
+void burner (double p);
