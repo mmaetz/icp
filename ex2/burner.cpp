@@ -1,19 +1,18 @@
 #include "latticeview.h"
-#include <stdlib.h>
 #include <random>
 
-#define N 50             //Lateral number of cells
+#define N 503             //Lateral number of cells
 #define ImageWidth 500  //image width
 #define ImageHeight 500 //image height
 
 using namespace std;
 
-void burner (double p)
+void burner (double p, int seed, int& timesteps, bool& reach)
 {
   int lat[N*N];  //create lattice
 	int temp_lat[N*N];
   int icounter, jcounter; //counters
-	std::mt19937 gen(42);
+	std::mt19937 gen(seed);
 	std::uniform_real_distribution<double> dis(0,1);
 
   for (icounter=0; icounter<N*N; icounter++) lat[icounter]=0;
@@ -30,8 +29,6 @@ void burner (double p)
 	}
 
 	bool burn=1;
-	bool reach=0;
-	int giter = 0;
 	while(burn)
 	{
 		burn=0;
@@ -67,24 +64,16 @@ void burner (double p)
 			if(lat[icounter] == 4)
 				lat[icounter] = 2;
 		}
-		giter++;
+		timesteps++;
 		for(icounter = N*N-N; icounter < N*N; icounter++)
 		{
 			if(lat[icounter]==2)
 			{
 				burn=0;
 				reach=1;
-				cout << "The fire does reach other end and the number of steps was:" << endl;
-				cout << giter << endl;
-			}
-			if(reach)
 				break;
+			}
 		}
-	}
-	if(!reach)
-	{
-		cout << "The fire does not reach the other end and the number of steps was:" << endl;
-		cout << giter << endl;
 	}
 
 //  Print_lattice (lat, N, N, ImageWidth, ImageHeight, "task3-2.ppm");
