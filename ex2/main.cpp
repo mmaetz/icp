@@ -1,9 +1,9 @@
 #include "latticeview.h"
 #include <stdlib.h>
 
-#define N 15             //Lateral number of cells
-#define ImageWidth 100  //image width
-#define ImageHeight 100 //image height
+#define N 50             //Lateral number of cells
+#define ImageWidth 400  //image width
+#define ImageHeight 400 //image height
 
 
 using namespace std;

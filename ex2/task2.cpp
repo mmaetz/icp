@@ -1,7 +1,7 @@
 #include "latticeview.h"
 #include <stdlib.h>
 
-#define N 50             //Lateral number of cells
+#define N 20             //Lateral number of cells
 #define ImageWidth 1000  //image width
 #define ImageHeight 1000 //image height
 
@@ -12,7 +12,7 @@ main ()
 {
   int lat[N*N];  //create lattice
   int icounter, jcounter; //counters
-	double p = 0.7;
+	double p = 0.5;
 
   for (icounter=0; icounter<N*N; icounter++) lat[icounter]=0;
   for (icounter=0; icounter<N*N; icounter++)
@@ -20,6 +20,6 @@ main ()
 		if(drand48()<p)
 			lat[icounter]= (int)(1);
 	}
-  Print_lattice (lat, N, N, ImageWidth, ImageHeight, "task1.ppm");
+  Print_lattice (lat, N, N, ImageWidth, ImageHeight, "task2.ppm");
 
 }
