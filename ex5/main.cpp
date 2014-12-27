@@ -11,16 +11,18 @@ int main() {
 
 	std::vector<std::vector<double>> circles(0, std::vector<double>(3));
 	std::vector<double> position(3);
-	int n = 10;
-	int ncircles = 0;
-	double distance = 0;
-	double x = 0;
-	double y = 0;
-	double z = 0;
 
-	double sphere_radius = 0.2;
+	const unsigned int n = 24;
+
+	unsigned int ncircles = 0;
+	double d = 0;
+	std::vector<double> distance;
+	double x,y,z = 0;
+
+	const double sphere_radius = 0.2;
 	bool touch = 0;
-	int fail = 0;
+	unsigned int fail = 0;
+
 	while(ncircles < n)
 	{
 		touch = 0;
@@ -34,8 +36,8 @@ int main() {
 			y = (*it)[1]-position[1];
 			z = (*it)[2]-position[2];
 
-			distance = std::sqrt(x*x + y*y + z*z)-2*sphere_radius;
-			if(distance < 0)
+			d = std::sqrt(x*x + y*y + z*z)-2*sphere_radius;
+			if(d <= 0)
 			{
 				touch = 1;
 				fail++;
@@ -48,10 +50,25 @@ int main() {
 			ncircles++;
 		}
 	}
+	for( std::vector<std::vector<double> >::iterator i = circles.begin(); i != circles.end(); ++i)
+	{
+		for( std::vector<std::vector<double> >::iterator j = circles.begin(); j != i; ++j)
+		{
+			x = (*i)[0]-(*j)[0];
+			y = (*i)[1]-(*j)[1];
+			z = (*i)[2]-(*j)[2];
+
+			distance.push_back(std::sqrt(x*x + y*y + z*z));
+		}
+	}
+	double distance_mean = std::accumulate(distance.begin(), distance.end(), 0.0)/double(distance.size());
+	cout << "distance mean" << endl;
+	cout << distance_mean << endl;
+
 	cout << "coordinates" << endl;
 	for( std::vector<std::vector<double> >::iterator it = circles.begin(); it != circles.end(); ++it)
 	{
-			cout << '(' << (*it)[0] << ',' << (*it)[1] << (*it)[2] << ')' << endl;
+			cout << '(' << (*it)[0] << ',' << (*it)[1] << ',' << (*it)[2] << ')' << endl;
 	}
 	cout << "fails: " << fail << endl;
 	return 0;
