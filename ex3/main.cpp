@@ -11,7 +11,7 @@ void hoshen_kopelman(std::vector<int>& grid, const int n);
 main () {
 	int iter = 0;
 	int jter = 0;
-	const int n = 3;
+	const int n = 4;
 	std::vector<int> grid(n*n);
 
 	const int seed = 42;
@@ -24,7 +24,7 @@ main () {
 			grid[iter] = 1;
 	}
 //	print(grid, n);
-	print(grid,n);
+//	print(grid,n);
 	hoshen_kopelman(grid, n);
 	cout << "********************" << endl;
 	print(grid,n);

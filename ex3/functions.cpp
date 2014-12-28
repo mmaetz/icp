@@ -44,34 +44,46 @@ void hoshen_kopelman(std::vector<int>& grid, const int n)
 	{
 		for(jter = 0; jter < n; jter++)
 		{
+			print(grid,n);
+			cout << "***  " ;
 			index = iter*n+jter;
 			if(grid[index] == 0)
+			{
+				cout << "o  ***" << endl << endl;
 				continue;
+			}
 			else
 			if(index > 0)
 				k1 = grid[index - 1];
 			if(index >= n)
+			{
 				k2 = grid[index - n];
+				cout << "index: " << index << " k2: " << k2 << "  ";
+			}
+
 			if(left_empty(grid, n, index) && up_empty(grid, n, index))
 			{
 				grid[index] = k;
 				M[k] = 1;
 				k++;
-				cout << "a" << endl;
-				cout << k << endl;
+				cout << "a  ***" << endl << endl;
+				cout << "k = " << k << endl << endl;
+				continue;
 			}
 			if( left_empty(grid, n, index) && up_occ(grid, n, index, k) )
 			{
-				grid[index] = k1;
+				grid[index] = k2;
 				M[k1]++;
-				cout << "b" << endl;
-				cout << k << endl;
+				cout << "b  ***" << endl << endl;
+				cout << "k = " << k << endl << endl;
+				continue;
 			}
 			if( up_empty(grid, n, index) && left_occ(grid, n, index, k) )
 			{
-				grid[index] = k2;
+				grid[index] = k1;
 				M[k2]++;
-				cout << "c" << endl;
+				cout << "c  ***" << endl << endl;
+				continue;
 			}
 			if( left_occ(grid, n, index, k) && up_occ(grid, n, index, k) )
 			{
@@ -79,25 +91,23 @@ void hoshen_kopelman(std::vector<int>& grid, const int n)
 				{
 					grid[index] = k1;
 					M[k1]++;
-					cout << "d" << endl;
+					cout << "d  ***" << endl << endl;
 				}
-				if( k1 != k2 )
+				else
 				{
 					grid[index] = k1;
 					M[k1] = M[k1] + M[k2] + 1;
 					M[k2] = -k1;
-					cout << "e" << endl;
+					cout << "e  ***" << endl << endl;
 				}
 			}
-			cout << "********************" << endl;
-			print(grid,n);
 		}
 	}
 }
 
 bool left_empty(std::vector<int> grid, const int n, int index)
 {
-	return index % n || grid[index-1] == 0;
+	return index % n == 0 || grid[index-1] == 0;
 }
 
 bool up_empty(std::vector<int> grid, const int n, int index)
@@ -107,10 +117,10 @@ bool up_empty(std::vector<int> grid, const int n, int index)
 
 bool left_occ(std::vector<int> grid, const int n, int index, int k)
 {
-	return 1 < grid[index - 1];
+	return 0 < grid[index - 1];
 }
 
 bool up_occ(std::vector<int> grid, const int n, int index, int k)
 {
-	return 1 < grid[index - n];
+	return 0 < grid[index - n];
 }
