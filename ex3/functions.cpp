@@ -114,6 +114,12 @@ void hoshen_kopelman(std::vector<int>& grid, const int n, std::vector<int>& M)
 			}
 		}
 	}
+	std::vector<int> ns(k);
+	for(int kit = 0; kit < k; kit++)
+	{
+		if(M[kit]>0)
+			ns(M[kit])++;
+	}
 }
 
 bool left_empty(std::vector<int> grid, const int n, int index)
