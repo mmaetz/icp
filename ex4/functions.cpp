@@ -81,6 +81,7 @@ void hoshen_kopelman(std::vector<int>& grid, const int n, std::vector<int>& M)
 				{
 					grid[index] = k1;
 					M[k1]++;
+					continue;
 				}
 				else
 				{
