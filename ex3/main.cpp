@@ -5,17 +5,15 @@
 
 using namespace std;
 
-void print(std::vector<int> grid,  const int n);
-void hoshen_kopelman(std::vector<int>& grid, const int n);
 
 main () {
 	int iter = 0;
 	int jter = 0;
-	const int n = 4;
+	const int n = 10;
 	std::vector<int> grid(n*n);
 
 	const int seed = 42;
-	const double p = 0.7;
+	const double p = 0.6;
 	std::mt19937 gen(seed);
 	std::uniform_real_distribution<double> dis(0,1);
 	for(iter = 0; iter < grid.size(); iter++)
@@ -23,9 +21,18 @@ main () {
 		if(dis(gen) < p)
 			grid[iter] = 1;
 	}
-//	print(grid, n);
-//	print(grid,n);
-	hoshen_kopelman(grid, n);
+	std::vector<int> M(n*n);
+	M[2] = 1;
+
+	print(grid,n);
+	hoshen_kopelman(grid, n, M);
 	cout << "********************" << endl;
 	print(grid,n);
+	cout << endl;
+
+	for(std::vector<int>::iterator it = M.begin(); it != M.end(); it++)
+	{
+		cout << *it << ' ';
+	}
+	cout << endl;
 }

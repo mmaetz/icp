@@ -27,11 +27,9 @@ void print(std::vector<int> grid, const int n)
 	}
 }
 
-void hoshen_kopelman(std::vector<int>& grid, const int n)
+void hoshen_kopelman(std::vector<int>& grid, const int n, std::vector<int>& M)
 {
-	std::vector<int> M(n*n);
 	int k=2;
-	M[k] = 1;
 
 	int iter = 0;
 	int jter = 0;
@@ -44,12 +42,9 @@ void hoshen_kopelman(std::vector<int>& grid, const int n)
 	{
 		for(jter = 0; jter < n; jter++)
 		{
-			print(grid,n);
-			cout << "***  " ;
 			index = iter*n+jter;
 			if(grid[index] == 0)
 			{
-				cout << "o  ***" << endl << endl;
 				continue;
 			}
 			else
@@ -58,7 +53,6 @@ void hoshen_kopelman(std::vector<int>& grid, const int n)
 			if(index >= n)
 			{
 				k2 = grid[index - n];
-				cout << "index: " << index << " k2: " << k2 << "  ";
 			}
 
 			if(left_empty(grid, n, index) && up_empty(grid, n, index))
@@ -66,23 +60,18 @@ void hoshen_kopelman(std::vector<int>& grid, const int n)
 				grid[index] = k;
 				M[k] = 1;
 				k++;
-				cout << "a  ***" << endl << endl;
-				cout << "k = " << k << endl << endl;
 				continue;
 			}
 			if( left_empty(grid, n, index) && up_occ(grid, n, index, k) )
 			{
 				grid[index] = k2;
-				M[k1]++;
-				cout << "b  ***" << endl << endl;
-				cout << "k = " << k << endl << endl;
+				M[k2]++;
 				continue;
 			}
 			if( up_empty(grid, n, index) && left_occ(grid, n, index, k) )
 			{
 				grid[index] = k1;
-				M[k2]++;
-				cout << "c  ***" << endl << endl;
+				M[k1]++;
 				continue;
 			}
 			if( left_occ(grid, n, index, k) && up_occ(grid, n, index, k) )
@@ -91,14 +80,36 @@ void hoshen_kopelman(std::vector<int>& grid, const int n)
 				{
 					grid[index] = k1;
 					M[k1]++;
-					cout << "d  ***" << endl << endl;
 				}
 				else
 				{
 					grid[index] = k1;
 					M[k1] = M[k1] + M[k2] + 1;
 					M[k2] = -k1;
-					cout << "e  ***" << endl << endl;
+				}
+			}
+		}
+	}
+	int mj = 0;
+	bool change = 0;
+	for(int mi = 0; mi<n*n; mi++)
+	{
+		mj = mi;
+		change = 0;
+		while(M[mj]<0)
+		{
+			mj = -M[mj];
+			change = 1;
+		}
+		if(change == 1)
+		{
+			for(iter = 0; iter < n; iter++)
+			{
+				for(jter = 0; jter < n; jter++)
+				{
+					index = iter*n+jter;
+					if(grid[index] == mi)
+						grid[index] = mj;
 				}
 			}
 		}
