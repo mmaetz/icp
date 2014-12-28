@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include "functions.h"
 
 using namespace std;
@@ -121,6 +122,32 @@ void hoshen_kopelman(std::vector<int>& grid, const int n, std::vector<int>& M)
 			ns[M[kit]]++;
 	}
 }
+
+void biggest_cluster(std::vector<int>& grid, const int n, std::vector<int>& M)
+{
+	int iter = 0;
+	int jter = 0;
+	int index = 0;
+
+	int M_max_el = *std::max_element(M.begin(), M.end());
+	int M_max_index = 0;
+	while(M[M_max_index] != M_max_el)
+	{
+		M_max_index++;
+	}
+	for(iter = 0; iter < n; iter++)
+	{
+		for(jter = 0; jter < n; jter++)
+		{
+			index = iter*n+jter;
+			if(grid[index] == M_max_index)
+				grid[index] = 1;
+			else
+				grid[index] = 0;
+		}
+	}
+}
+
 
 bool left_empty(std::vector<int> grid, const int n, int index)
 {
