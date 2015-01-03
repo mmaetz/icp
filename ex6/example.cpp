@@ -23,7 +23,7 @@ vector< vector<bool> > cluster;
 // test wether site is on lattice
 bool onLattice(int x, int y) {
 	int i = y + (L - 1) / 2;
-	int j = x + (L -1 ) / 2;
+	int j = x + (L - 1) / 2;
 	return i >= 0 && i < L && j >= 0 && j < L;
 }
 
