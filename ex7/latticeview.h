@@ -2,7 +2,7 @@
 #include<fstream>
 #include <vector>
 
-#define N 50             //Lateral number of cells
+#define N 1000             //Lateral number of cells
 #define ImageWidth 1000  //image width
 #define ImageHeight 1000 //image height
 
