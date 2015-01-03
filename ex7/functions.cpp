@@ -2,7 +2,7 @@
 #include <random>
 #include "functions.h"
 #include <iostream>
-#define N 1000             //Lateral number of cells
+#define N 100             //Lateral number of cells
 
 void initalize(std::vector< std::vector<bool> >& cluster, const int seed, const double p)
 {
@@ -26,18 +26,18 @@ void initalize(std::vector< std::vector<bool> >& cluster, const int seed, const 
 	}
 }
 
-int energy_diff(std::vector< std::vector<bool> >& cluster, int i, int j)
+int energy_diff(std::vector< std::vector<bool> >& cluster, int i, int j, int ferro)
 {
 	int energy = 0, energy1 = 0, energy2 = 0;
-	energy1 += -cluster[i][j]*cluster[period(i+1)][j];
-	energy1 += -cluster[i][j]*cluster[period(i-1)][j];
-	energy1 += -cluster[i][j]*cluster[i][period(j-1)];
-	energy1 += -cluster[i][j]*cluster[i][period(j+1)];
+	energy1 += ferro*cluster[i][j]*cluster[period(i+1)][j];
+	energy1 += ferro*cluster[i][j]*cluster[period(i-1)][j];
+	energy1 += ferro*cluster[i][j]*cluster[i][period(j-1)];
+	energy1 += ferro*cluster[i][j]*cluster[i][period(j+1)];
 
-	energy2 += cluster[i][j]*cluster[period(i+1)][j];
-	energy2 += cluster[i][j]*cluster[period(i-1)][j];
-	energy2 += cluster[i][j]*cluster[i][period(j-1)];
-	energy2 += cluster[i][j]*cluster[i][period(j+1)];
+	energy2 += -ferro*cluster[i][j]*cluster[period(i+1)][j];
+	energy2 += -ferro*cluster[i][j]*cluster[period(i-1)][j];
+	energy2 += -ferro*cluster[i][j]*cluster[i][period(j-1)];
+	energy2 += -ferro*cluster[i][j]*cluster[i][period(j+1)];
 
 	energy = energy1-energy2;
 	return energy;

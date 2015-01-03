@@ -29,14 +29,16 @@ main () {
 	initalize(cluster, seed_occ, p);
 	Print_lattice (cluster, N, N, ImageWidth, ImageHeight, "random1.ppm");
 
-	int steps = 1000000;
+	int steps = 3000000;
 	int i,j;
+	// ferromagnetism 1 or -1
+	int ferro = -1;
 
 	for(icounter = 0; icounter < steps; icounter++)
 	{
 		i = pos(gen_pos);
 		j = pos(gen_pos);
-		int this_energy = energy_diff(cluster, i, j);
+		int this_energy = energy_diff(cluster, i, j, ferro);
 		if( this_energy < 0 )
 			flip(cluster, i, j);
 		else
