@@ -24,12 +24,12 @@ main () {
 	std::uniform_real_distribution<double> en(0,1);
 	std::uniform_int_distribution<> pos(0,N-1);
 
-	std::vector< std::vector<bool> > cluster(N, std::vector<bool>(N));
+	std::vector< std::vector<char> > cluster(N, std::vector<char>(N));
 
 	initalize(cluster, seed_occ, p);
 	Print_lattice (cluster, N, N, ImageWidth, ImageHeight, "random1.ppm");
 
-	int steps = 3000000;
+	int steps = pow(10,5);
 	int i,j;
 	// ferromagnetism 1 or -1
 	int ferro = -1;
